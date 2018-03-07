@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.rebeccahenderson.trips.Trips">
+    tools:context="com.rebeccahenderson.trips.TripsListActivity">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/tripList"
         android:layout_width="match_parent"

@@ -7,14 +7,14 @@ import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_trips.*
 
-class Trips : AppCompatActivity() {
+class TripsListActivity : AppCompatActivity() {
 
     lateinit private var staggeredLayoutManager: StaggeredGridLayoutManager
     lateinit private var adapter: TripsListAdapter
 
     private val onItemClickListener = object : TripsListAdapter.OnItemClickListener {
         override fun onItemClick(view: View, position: Int) {
-//            Toast.makeText(this@MainActivity, "Clicked " + position, Toast.LENGTH_SHORT).show()
+            startActivity(TripDaysListActivity.newIntent(this@TripsListActivity, position))
         }
     }
 
