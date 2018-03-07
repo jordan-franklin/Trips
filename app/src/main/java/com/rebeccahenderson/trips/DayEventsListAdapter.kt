@@ -22,6 +22,10 @@ class DayEventsListAdapter(private var context: Context) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val event = DayEventsData.dayEventsList()[position]
         holder?.itemView?.eventName?.text = event
+
+        val mimeType = "text/html"
+        val encoding = "UTF-8";
+        holder?.itemView?.eventDescription?.loadDataWithBaseURL("", DayEventsData.eventDescriptionHTML, mimeType, encoding, "")
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
