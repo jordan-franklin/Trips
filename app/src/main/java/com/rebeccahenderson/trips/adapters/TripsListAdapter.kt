@@ -1,10 +1,12 @@
-package com.rebeccahenderson.trips
+package com.rebeccahenderson.trips.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.rebeccahenderson.trips.R
+import com.rebeccahenderson.trips.TripsData
 import kotlinx.android.synthetic.main.row_trip.view.*
 
 /**
@@ -25,7 +27,6 @@ class TripsListAdapter(private var context: Context) : RecyclerView.Adapter<Trip
 	override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
 		val trip = TripsData.tripsList()[position]
 		holder?.itemView?.tripName?.text = trip
-//		Picasso.with(context).load(place.getImageResourceId(context)).into(holder?.itemView?.placeImage)
 	}
 
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {

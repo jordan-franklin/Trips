@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TripsListActivity">
+        <activity android:name=".activities.TripsListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TripDaysListActivity" />
-        <activity android:name=".DayEventsListActivity"></activity>
+        <activity android:name=".activities.TripDaysListActivity" />
+        <activity android:name=".activities.DayEventsListActivity"></activity>
     </application>
 
 </manifest>

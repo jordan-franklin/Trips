@@ -1,4 +1,4 @@
-package com.rebeccahenderson.trips
+package com.rebeccahenderson.trips.activities
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
+import com.rebeccahenderson.trips.R
+import com.rebeccahenderson.trips.adapters.TripDaysListAdapter
+import com.rebeccahenderson.trips.TripsData
 import kotlinx.android.synthetic.main.activity_tripdays.*
 
 /**

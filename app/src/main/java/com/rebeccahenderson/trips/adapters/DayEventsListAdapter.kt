@@ -1,10 +1,12 @@
-package com.rebeccahenderson.trips
+package com.rebeccahenderson.trips.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.rebeccahenderson.trips.DayEventsData
+import com.rebeccahenderson.trips.R
 import kotlinx.android.synthetic.main.row_dayevent.view.*
 
 /**

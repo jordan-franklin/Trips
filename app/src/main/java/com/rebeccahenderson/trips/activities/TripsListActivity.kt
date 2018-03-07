@@ -1,10 +1,11 @@
-package com.rebeccahenderson.trips
+package com.rebeccahenderson.trips.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
-import android.widget.Toast
+import com.rebeccahenderson.trips.R
+import com.rebeccahenderson.trips.adapters.TripsListAdapter
 import kotlinx.android.synthetic.main.activity_trips.*
 
 class TripsListActivity : AppCompatActivity() {

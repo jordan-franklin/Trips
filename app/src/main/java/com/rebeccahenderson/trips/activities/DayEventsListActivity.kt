@@ -1,11 +1,13 @@
-package com.rebeccahenderson.trips
+package com.rebeccahenderson.trips.activities
 
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
-import kotlinx.android.synthetic.main.activity_tripdays.*
+import com.rebeccahenderson.trips.adapters.DayEventsListAdapter
+import com.rebeccahenderson.trips.R
+import com.rebeccahenderson.trips.TripDaysData
 import kotlinx.android.synthetic.main.activity_dayevents.*
 
 class DayEventsListActivity : AppCompatActivity() {
@@ -41,7 +43,7 @@ class DayEventsListActivity : AppCompatActivity() {
     }
 
     fun loadDay() {
-        day = TripDaysData.tripDaysList()[intent.getIntExtra(DayEventsListActivity.EXTRA_PARAM_ID, 0)]
+        day = TripDaysData.tripDaysList()[intent.getIntExtra(EXTRA_PARAM_ID, 0)]
         dayName.text = day
     }
 }
