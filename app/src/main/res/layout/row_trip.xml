@@ -11,6 +11,14 @@
         android:layout_height="200dp"
         android:scaleType="centerCrop" />
 
+    <!-- Used for the ripple effect on touch -->
+    <LinearLayout
+        android:id="@+id/tripHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:selectableItemBackground"
+        android:orientation="horizontal" />
+
     <LinearLayout
         android:id="@+id/tripNameHolder"
         android:layout_width="match_parent"

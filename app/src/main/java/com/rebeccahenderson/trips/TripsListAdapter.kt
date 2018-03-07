@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import kotlinx.android.synthetic.main.row_trip.view.*
 
 /**
@@ -12,6 +13,8 @@ import kotlinx.android.synthetic.main.row_trip.view.*
  */
 
 class TripsListAdapter(private var context: Context) : RecyclerView.Adapter<TripsListAdapter.ViewHolder>() {
+
+	lateinit var itemClickListener: OnItemClickListener
 
 	override fun getItemCount() = TripsData.tripsList().size
 
@@ -26,6 +29,19 @@ class TripsListAdapter(private var context: Context) : RecyclerView.Adapter<Trip
 //		Picasso.with(context).load(place.getImageResourceId(context)).into(holder?.itemView?.placeImage)
 	}
 
-	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+		init {
+			itemView.tripHolder.setOnClickListener(this)
+		}
+
+		override fun onClick(view: View) = itemClickListener.onItemClick(itemView, adapterPosition)
+	}
+
+	interface OnItemClickListener {
+		fun onItemClick(view: View, position: Int)
+	}
+
+	fun setOnItemClickListener(itemClickListener: OnItemClickListener) {
+		this.itemClickListener = itemClickListener
 	}
 }
