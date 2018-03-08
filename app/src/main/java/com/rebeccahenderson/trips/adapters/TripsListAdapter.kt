@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.row_trip.view.*
  * Created by becky on 3/6/18.
  */
 
-class TripsListAdapter(private var context: Context, private var trips: List<Trip>) : RecyclerView.Adapter<TripsListAdapter.ViewHolder>() {
+class TripsListAdapter(private var context: Context, val trips: List<Trip>) : RecyclerView.Adapter<TripsListAdapter.ViewHolder>() {
 
 	lateinit var itemClickListener: OnItemClickListener
 

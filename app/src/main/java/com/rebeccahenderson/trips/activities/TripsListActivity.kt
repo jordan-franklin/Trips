@@ -18,7 +18,8 @@ class TripsListActivity : AppCompatActivity() {
 
     private val onItemClickListener = object : TripsListAdapter.OnItemClickListener {
         override fun onItemClick(view: View, position: Int) {
-            startActivity(TripDaysListActivity.newIntent(this@TripsListActivity, position))
+            val trip = adapter.trips[position]
+            startActivity(TripDaysListActivity.newIntent(this@TripsListActivity, trip))
         }
     }
 

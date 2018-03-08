@@ -8,8 +8,11 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.rebeccahenderson.trips.R
 import com.rebeccahenderson.trips.adapters.TripDaysListAdapter
-import com.rebeccahenderson.trips.TripsData
+import com.rebeccahenderson.trips.models.Trip
+import com.rebeccahenderson.trips.services.TravefyAPI
 import kotlinx.android.synthetic.main.activity_tripdays.*
+import com.github.kittinunf.result.Result
+import com.rebeccahenderson.trips.models.TripDay
 
 /**
  * Created by becky on 3/7/18.
@@ -17,23 +20,23 @@ import kotlinx.android.synthetic.main.activity_tripdays.*
 class TripDaysListActivity: AppCompatActivity() {
 
     companion object {
-        val EXTRA_PARAM_ID = "trip_id"
+        val EXTRA_TRIP_ID = "trip"
 
-        fun newIntent(context: Context, position: Int): Intent {
+        fun newIntent(context: Context, trip: Trip): Intent {
             val intent = Intent(context, TripDaysListActivity::class.java)
-            intent.putExtra(EXTRA_PARAM_ID, position)
+            intent.putExtra(EXTRA_TRIP_ID, trip)
             return intent
         }
     }
 
-    lateinit private var trip: String
+    lateinit private var trip: Trip
 
     lateinit private var staggeredLayoutManager: StaggeredGridLayoutManager
     lateinit private var adapter: TripDaysListAdapter
 
     private val onItemClickListener = object : TripDaysListAdapter.OnItemClickListener {
         override fun onItemClick(view: View, position: Int) {
-            startActivity(DayEventsListActivity.newIntent(this@TripDaysListActivity, position))
+            startActivity(DayEventsListActivity.newIntent(this@TripDaysListActivity, trip.Id, adapter.days[position]))
         }
     }
 
@@ -44,18 +47,33 @@ class TripDaysListActivity: AppCompatActivity() {
         staggeredLayoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         tripDaysList.layoutManager = staggeredLayoutManager
 
-        setupAdapter()
-        loadTrip()
+        loadTripDays()
     }
 
-    fun setupAdapter() {
-        adapter = TripDaysListAdapter(this)
+    fun setupAdapter(days: List<TripDay>) {
+        adapter = TripDaysListAdapter(this, days)
         tripDaysList.adapter = adapter
         adapter.setOnItemClickListener(onItemClickListener)
     }
 
-    fun loadTrip() {
-        trip = TripsData.tripsList()[intent.getIntExtra(EXTRA_PARAM_ID, 0)]
-        tripName.text = trip
+    fun loadTripDays() {
+		trip = intent.getParcelableExtra(EXTRA_TRIP_ID)
+		tripName.text = trip.Name
+
+        tripDaysListProgress.visibility = View.VISIBLE
+        tripDaysList.visibility = View.GONE
+
+        TravefyAPI.getTripDays(trip.Id) { request, response, result ->
+			when(result) {
+				is Result.Success -> {
+					tripDaysListProgress.visibility = View.GONE
+					tripDaysList.visibility = View.VISIBLE
+					setupAdapter(result.value)
+				}
+				is Result.Failure -> {
+					println("Result $result")
+				}
+			}
+        }
     }
 }

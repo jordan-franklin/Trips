@@ -7,17 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.rebeccahenderson.trips.R
 import com.rebeccahenderson.trips.TripDaysData
+import com.rebeccahenderson.trips.models.TripDay
 import kotlinx.android.synthetic.main.row_tripdate.view.*
 
 /**
  * Created by becky on 3/7/18.
  */
 
-class TripDaysListAdapter(private var context: Context) : RecyclerView.Adapter<TripDaysListAdapter.ViewHolder>() {
+class TripDaysListAdapter(private var context: Context, val days: List<TripDay>) : RecyclerView.Adapter<TripDaysListAdapter.ViewHolder>() {
 
     lateinit var itemClickListener: OnItemClickListener
 
-    override fun getItemCount() = TripDaysData.tripDaysList().size
+    override fun getItemCount() = days.size
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.row_tripdate, parent, false)
@@ -25,9 +26,8 @@ class TripDaysListAdapter(private var context: Context) : RecyclerView.Adapter<T
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        val tripDay = TripDaysData.tripDaysList()[position]
-        holder?.itemView?.tripDayName?.text = tripDay
-//		Picasso.with(context).load(place.getImageResourceId(context)).into(holder?.itemView?.placeImage)
+        val tripDay = days[position]
+        holder?.itemView?.tripDayName?.text = tripDay.Title //add fallback for empty name. just day of week?
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
