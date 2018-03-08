@@ -6,18 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rebeccahenderson.trips.R
-import com.rebeccahenderson.trips.TripsData
+import com.rebeccahenderson.trips.models.Trip
 import kotlinx.android.synthetic.main.row_trip.view.*
 
 /**
  * Created by becky on 3/6/18.
  */
 
-class TripsListAdapter(private var context: Context) : RecyclerView.Adapter<TripsListAdapter.ViewHolder>() {
+class TripsListAdapter(private var context: Context, private var trips: List<Trip>) : RecyclerView.Adapter<TripsListAdapter.ViewHolder>() {
 
 	lateinit var itemClickListener: OnItemClickListener
 
-	override fun getItemCount() = TripsData.tripsList().size
+	override fun getItemCount() = trips.size
 
 	override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
 		val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.row_trip, parent, false)
@@ -25,8 +25,8 @@ class TripsListAdapter(private var context: Context) : RecyclerView.Adapter<Trip
 	}
 
 	override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-		val trip = TripsData.tripsList()[position]
-		holder?.itemView?.tripName?.text = trip
+		val trip = trips[position]
+		holder?.itemView?.tripName?.text = trip.Name
 	}
 
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {

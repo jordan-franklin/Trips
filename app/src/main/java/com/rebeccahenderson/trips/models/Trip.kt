@@ -11,15 +11,4 @@ import java.io.Reader
 data class Trip(val Id: Int,
 				val Name: String,
 				val TripCoverPhotoUrl: String,
-				val TripDays: Array<TripDay>) {
-	class Deserializer : ResponseDeserializable<Trip> {
-		override fun deserialize(reader: Reader) = Gson().fromJson(reader, Trip::class.java)
-	}
-
-	class ListDeserializer : ResponseDeserializable<List<Trip>> {
-		override fun deserialize(reader: Reader): List<Trip> {
-			val type = object : TypeToken<List<Trip>>() {}.type
-			return Gson().fromJson(reader, type)
-		}
-	}
-}
+				val TripDays: Array<TripDay>)
