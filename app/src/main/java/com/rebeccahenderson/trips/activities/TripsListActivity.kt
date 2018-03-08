@@ -6,6 +6,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.rebeccahenderson.trips.R
 import com.rebeccahenderson.trips.adapters.TripsListAdapter
+import com.rebeccahenderson.trips.services.TravefyAPI
 import kotlinx.android.synthetic.main.activity_trips.*
 
 class TripsListActivity : AppCompatActivity() {
@@ -26,6 +27,12 @@ class TripsListActivity : AppCompatActivity() {
         staggeredLayoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         tripList.layoutManager = staggeredLayoutManager
 
+        setupAdapter()
+
+		TravefyAPI.getTrips()
+    }
+
+    fun setupAdapter() {
         adapter = TripsListAdapter(this)
         tripList.adapter = adapter
         adapter.setOnItemClickListener(onItemClickListener)
