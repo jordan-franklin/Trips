@@ -23,26 +23,25 @@ import java.text.SimpleDateFormat
 data class TripDay(var Id: Int,
 				   var Title: String,
 				   var Date: Date?,
-				   var TripEvents: Array<TripEvent>?) : Parcelable {
-    constructor(parcel: Parcel) : this(
-            parcel.readInt(),
-            parcel.readString(),
-            if (parcel.readLong() != null) Date(parcel.readLong()) else null,
-            parcel.createTypedArray(TripEvent)) {
-    }
+				   var TripEvents: List<TripEvent>) : Parcelable {
+	constructor(parcel: Parcel) : this(
+			parcel.readInt(),
+			parcel.readString(),
+			Date(parcel.readLong()),
+			parcel.createTypedArrayList(TripEvent))
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(Id)
-        parcel.writeString(Title)
-        parcel.writeLong(Date?.time ?: 0)
-        parcel.writeTypedArray(TripEvents, flags)
-    }
+	override fun writeToParcel(parcel: Parcel, flags: Int) {
+		parcel.writeInt(Id)
+		parcel.writeString(Title)
+		parcel.writeLong(Date?.time ?: 0)
+		parcel.writeTypedList(TripEvents)
+	}
 
-    override fun describeContents(): Int {
-        return 0
-    }
+	override fun describeContents(): Int {
+		return 0
+	}
 
-    companion object CREATOR : Parcelable.Creator<TripDay> {
+	companion object CREATOR : Parcelable.Creator<TripDay> {
 		override fun createFromParcel(parcel: Parcel): TripDay {
 			return TripDay(parcel)
 		}

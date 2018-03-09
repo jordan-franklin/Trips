@@ -36,7 +36,7 @@ class TripDaysListActivity: AppCompatActivity() {
 
     private val onItemClickListener = object : TripDaysListAdapter.OnItemClickListener {
         override fun onItemClick(view: View, position: Int) {
-            startActivity(DayEventsListActivity.newIntent(this@TripDaysListActivity, trip.Id, adapter.days[position]))
+            startActivity(DayEventsListActivity.newIntent(this@TripDaysListActivity, adapter.days[position]))
         }
     }
 
@@ -50,8 +50,9 @@ class TripDaysListActivity: AppCompatActivity() {
         loadTripDays()
     }
 
-    fun setupAdapter(days: List<TripDay>) {
-        adapter = TripDaysListAdapter(this, days)
+    fun setupAdapter(days: List<TripDay>?) {
+		var filteredDays = days?.filter { it.Date != null }
+        adapter = TripDaysListAdapter(this, filteredDays ?: listOf())
         tripDaysList.adapter = adapter
         adapter.setOnItemClickListener(onItemClickListener)
     }
@@ -63,12 +64,13 @@ class TripDaysListActivity: AppCompatActivity() {
         tripDaysListProgress.visibility = View.VISIBLE
         tripDaysList.visibility = View.GONE
 
-        TravefyAPI.getTripDays(trip.Id) { request, response, result ->
+        TravefyAPI.getTrip(trip.Id) { request, response, result ->
 			when(result) {
 				is Result.Success -> {
 					tripDaysListProgress.visibility = View.GONE
 					tripDaysList.visibility = View.VISIBLE
-					setupAdapter(result.value)
+					trip = result.value
+					setupAdapter(trip.TripDays)
 				}
 				is Result.Failure -> {
 					println("Result $result")

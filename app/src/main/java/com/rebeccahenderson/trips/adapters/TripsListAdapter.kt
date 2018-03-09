@@ -1,12 +1,18 @@
 package com.rebeccahenderson.trips.adapters
 
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.florent37.picassopalette.PicassoPalette
 import com.rebeccahenderson.trips.R
+import com.rebeccahenderson.trips.R.id.tripImage
+import com.rebeccahenderson.trips.R.id.tripNameHolder
 import com.rebeccahenderson.trips.models.Trip
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_trip.view.*
 
 /**
@@ -27,6 +33,13 @@ class TripsListAdapter(private var context: Context, val trips: List<Trip>) : Re
 	override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
 		val trip = trips[position]
 		holder?.itemView?.tripName?.text = trip.Name
+		Picasso.with(context)
+				.load(trip.TripCoverPhotoUrl)
+				.into(holder?.itemView?.tripImage,
+						PicassoPalette.with(trip.TripCoverPhotoUrl.toString(), holder?.itemView?.tripImage)
+								.use(PicassoPalette.Profile.MUTED_DARK)
+								.intoBackground(holder?.itemView?.tripNameHolder)
+				);
 	}
 
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {

@@ -28,7 +28,7 @@ class DayEventsListAdapter(private var context: Context, val events: List<TripEv
 
         val mimeType = "text/html"
         val encoding = "UTF-8";
-        holder?.itemView?.eventDescription?.loadDataWithBaseURL("", DayEventsData.eventDescriptionHTML, mimeType, encoding, "")
+        holder?.itemView?.eventDescription?.loadDataWithBaseURL("", event.Description, mimeType, encoding, "")
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -7,11 +7,13 @@ import android.os.Parcelable
  * Created by becky on 3/7/18.
  */
 
-data class TripEvent(var Id: Int, var Name: String, var Description: String) : Parcelable {
+data class TripEvent(var Id: Int,
+                     var Name: String,
+                     var Description: String) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
-            parcel.readString(),
-            parcel.readString()) {
+            parcel.readString() ?: "",
+            parcel.readString() ?: "") {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
