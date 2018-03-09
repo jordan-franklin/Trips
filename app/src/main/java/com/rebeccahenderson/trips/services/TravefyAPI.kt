@@ -1,9 +1,6 @@
 package com.rebeccahenderson.trips.services
 
-import com.github.kittinunf.fuel.core.FuelError
-import com.github.kittinunf.fuel.core.FuelManager
-import com.github.kittinunf.fuel.core.Request
-import com.github.kittinunf.fuel.core.Response
+import com.github.kittinunf.fuel.core.*
 import com.github.kittinunf.fuel.gson.responseObject
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
@@ -31,7 +28,7 @@ object TravefyAPI {
 	fun getTripDays(tripId: Int, handler: (Request, Response, Result<List<TripDay>, FuelError>) -> Unit) {
 		"/tripDays".httpGet()
 				.header(mapOf("X-TRIP-ID" to "$tripId"))
-				.responseObject<List<TripDay>>(handler)
+				.responseObject<List<TripDay>>(TripDay.ListDeserializer(), handler)
 	}
 
 	fun getTripDayEvents(tripDayId: Int, tripId: Int, handler: (Request, Response, Result<List<TripEvent>, FuelError>) -> Unit) {

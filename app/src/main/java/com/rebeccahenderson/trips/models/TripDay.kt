@@ -2,11 +2,19 @@ package com.rebeccahenderson.trips.models
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.github.kittinunf.fuel.core.Deserializable
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.util.*
+import com.google.gson.JsonParseException
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonElement
+import com.google.gson.JsonDeserializer
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
+import java.text.ParseException
+import java.text.SimpleDateFormat
+
 
 /**
  * Created by becky on 3/7/18.
@@ -44,8 +52,28 @@ data class TripDay(var Id: Int,
 		}
 	}
 
-	class Deserializer : ResponseDeserializable<TripDay> {
-		override fun deserialize(content: String) = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(content, TripDay::class.java)
+	class ListDeserializer : ResponseDeserializable<List<TripDay>> {
+
+		inline fun <reified T> Gson.fromJson(json: String) = this.fromJson<T>(json, object: TypeToken<T>() {}.type)
+
+		override fun deserialize(content: String) = GsonBuilder()
+                .registerTypeAdapter(Date::class.java, DateDeserializer())
+				.create()
+				.fromJson<List<TripDay>>(content)
 	}
+
+    class DateDeserializer : JsonDeserializer<Date> {
+
+        override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): Date {
+            var dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            try {
+                return SimpleDateFormat(dateFormat).parse(json?.asString)
+            } catch (e: ParseException) {
+                println(e)
+            }
+
+            throw JsonParseException("Unparseable date: ${json?.asString}")
+        }
+    }
 
 }
