@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import com.rebeccahenderson.trips.R
 import com.rebeccahenderson.trips.models.Day
 import com.rebeccahenderson.trips.models.Trip
-import kotlinx.android.synthetic.main.row_tripdate.view.*
+import kotlinx.android.synthetic.main.row_day.view.*
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 
 /**
@@ -22,13 +23,14 @@ class DaysListAdapter(private var context: Context, val days: List<Day>, val tri
     override fun getItemCount() = days.size
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.row_tripdate, parent, false)
+        val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.row_day, parent, false)
         return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val tripDay = days[position]
         holder?.itemView?.tripDayName?.text = tripDay.Title ?: SimpleDateFormat("EEEE").format(tripDay.Date)
+		holder?.itemView?.date?.text = DateFormat.getDateInstance().format(tripDay.Date)
 	}
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {

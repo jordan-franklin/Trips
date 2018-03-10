@@ -11,11 +11,8 @@ import com.rebeccahenderson.trips.adapters.TripsListAdapter
 import com.rebeccahenderson.trips.models.Trip
 import com.rebeccahenderson.trips.services.TravefyAPI
 import kotlinx.android.synthetic.main.activity_trips.*
-import kotlinx.android.synthetic.main.row_trip.*
 import android.support.v4.util.Pair
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 
 class TripsListActivity : AppCompatActivity() {
 

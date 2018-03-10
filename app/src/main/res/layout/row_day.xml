@@ -3,7 +3,7 @@
     android:id="@+id/tripDayCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="5dp">
 
     <!-- Used for the ripple effect on touch -->
     <LinearLayout
@@ -16,9 +16,9 @@
     <LinearLayout
         android:id="@+id/tripDayNameHolder"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tripDayName"
@@ -28,8 +28,20 @@
             android:gravity="start"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
+            android:paddingTop="5dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSecondary"
+            android:gravity="start"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="5dp"
+            android:textColor="@android:color/tertiary_text_dark"/>
 
     </LinearLayout>
 

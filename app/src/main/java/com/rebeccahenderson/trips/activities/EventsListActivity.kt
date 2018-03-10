@@ -4,12 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.StaggeredGridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import com.rebeccahenderson.trips.adapters.EventsListAdapter
 import com.rebeccahenderson.trips.R
 import com.rebeccahenderson.trips.models.Day
 import com.rebeccahenderson.trips.models.Event
-import kotlinx.android.synthetic.main.activity_dayevents.*
+import kotlinx.android.synthetic.main.activity_events.*
 
 class EventsListActivity : AppCompatActivity() {
 
@@ -23,15 +23,15 @@ class EventsListActivity : AppCompatActivity() {
         }
     }
 
-    lateinit private var staggeredLayoutManager: StaggeredGridLayoutManager
+    lateinit private var linearLayoutManager: LinearLayoutManager
     lateinit private var adapter: EventsListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dayevents)
+        setContentView(R.layout.activity_events)
 
-        staggeredLayoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
-        dayEventsList.layoutManager = staggeredLayoutManager
+        linearLayoutManager = LinearLayoutManager(this)
+        dayEventsList.layoutManager = linearLayoutManager
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

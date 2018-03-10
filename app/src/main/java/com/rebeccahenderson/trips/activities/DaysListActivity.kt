@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.github.florent37.picassopalette.PicassoPalette
 import com.rebeccahenderson.trips.R
@@ -56,6 +55,11 @@ class DaysListActivity : AppCompatActivity() {
 
 		collapsingToolbar?.setTitle(trip.Name);
     }
+
+	override fun onResume() {
+		super.onResume()
+		tripDaysListProgress.visibility = View.GONE
+	}
 
     fun setupAdapter(days: List<Day>?) {
 		var filteredDays = days?.filter { it.Date != null }
