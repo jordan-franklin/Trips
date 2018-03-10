@@ -25,10 +25,18 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/black" />
 
+        <TextView
+            android:id="@+id/eventTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"/>
+
         <WebView
             android:id="@+id/eventDescription"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"/>
 
     </LinearLayout>

@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import com.rebeccahenderson.trips.R
 import com.rebeccahenderson.trips.models.Event
 import kotlinx.android.synthetic.main.row_event.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by becky on 3/7/18.
  */
-class EventsListAdapter(private var context: Context, val events: List<Event>) : RecyclerView.Adapter<EventsListAdapter.ViewHolder>() {
+class EventsListAdapter(private var context: Context,
+						val events: List<Event>,
+						val date: Date) : RecyclerView.Adapter<EventsListAdapter.ViewHolder>() {
 
     override fun getItemCount() = events.size
 
@@ -24,6 +28,11 @@ class EventsListAdapter(private var context: Context, val events: List<Event>) :
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val event = events[position]
         holder?.itemView?.eventName?.text = event.Name
+		val eventTimeFromMidnight = event.StartTimeInMinutes
+		val calendar = Calendar.getInstance()
+		calendar.time = date
+		calendar.add(Calendar.MINUTE, eventTimeFromMidnight)
+        holder?.itemView?.eventTime?.text = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT).format(calendar.time)
 
         val mimeType = "text/html"
         val encoding = "UTF-8";

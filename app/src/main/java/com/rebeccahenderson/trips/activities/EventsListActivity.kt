@@ -9,6 +9,7 @@ import com.rebeccahenderson.trips.adapters.EventsListAdapter
 import com.rebeccahenderson.trips.R
 import com.rebeccahenderson.trips.models.Day
 import com.rebeccahenderson.trips.models.Event
+import com.rebeccahenderson.trips.models.Trip
 import kotlinx.android.synthetic.main.activity_events.*
 
 class EventsListActivity : AppCompatActivity() {
@@ -25,6 +26,7 @@ class EventsListActivity : AppCompatActivity() {
 
     lateinit private var linearLayoutManager: LinearLayoutManager
     lateinit private var adapter: EventsListAdapter
+    lateinit private var day: Day
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,14 +41,14 @@ class EventsListActivity : AppCompatActivity() {
     }
 
     fun setupAdapter(events: List<Event>?) {
-        adapter = EventsListAdapter(this, events ?: listOf<Event>())
+        adapter = EventsListAdapter(this, events ?: listOf<Event>(), day.Date!!)
         dayEventsList.adapter = adapter
     }
 
     fun loadDay() {
-		val tripDay = intent.getParcelableExtra<Day>(EXTRA_TRIP_DAY_ID)
-		supportActionBar?.title = tripDay.Title
+		day = intent.getParcelableExtra<Day>(EXTRA_TRIP_DAY_ID)
+		supportActionBar?.title = day.Title
 
-		setupAdapter(tripDay.TripEvents)
+		setupAdapter(day.TripEvents)
     }
 }

@@ -9,16 +9,19 @@ import android.os.Parcelable
 
 data class Event(var Id: Int,
                  var Name: String,
+                 var StartTimeInMinutes: Int,
                  var Description: String) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
             parcel.readString() ?: "",
+            parcel.readInt(),
             parcel.readString() ?: "") {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(Id)
         parcel.writeString(Name)
+        parcel.writeInt(StartTimeInMinutes)
         parcel.writeString(Description)
     }
 
