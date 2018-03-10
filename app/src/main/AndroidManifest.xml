@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:launchMode="singleTop">
         <activity android:name=".activities.TripsListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,8 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.TripDaysListActivity" />
-        <activity android:name=".activities.DayEventsListActivity"></activity>
+        <activity android:name=".activities.DaysListActivity"
+            android:parentActivityName=".activities.TripsListActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/NoActionBarTheme"/>
+        <activity android:name=".activities.EventsListActivity"
+            android:parentActivityName=".activities.DaysListActivity"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

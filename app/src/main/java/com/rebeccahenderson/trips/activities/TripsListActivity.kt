@@ -19,7 +19,7 @@ class TripsListActivity : AppCompatActivity() {
     private val onItemClickListener = object : TripsListAdapter.OnItemClickListener {
         override fun onItemClick(view: View, position: Int) {
             val trip = adapter.trips[position]
-            startActivity(TripDaysListActivity.newIntent(this@TripsListActivity, trip))
+            startActivity(DaysListActivity.newIntent(this@TripsListActivity, trip))
         }
     }
 

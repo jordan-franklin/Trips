@@ -16,12 +16,12 @@ import java.util.*
 data class Trip(val Id: Int,
 				val Name: String,
 				val TripCoverPhotoUrl: String,
-				val TripDays: List<TripDay>?) : Parcelable {
+				val TripDays: List<Day>?) : Parcelable {
 	constructor(parcel: Parcel) : this(
 			parcel.readInt(),
 			parcel.readString(),
 			parcel.readString(),
-			parcel.createTypedArrayList(TripDay)) {
+			parcel.createTypedArrayList(Day)) {
 	}
 
 	override fun writeToParcel(parcel: Parcel, flags: Int) {

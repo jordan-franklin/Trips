@@ -5,20 +5,19 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.rebeccahenderson.trips.DayEventsData
 import com.rebeccahenderson.trips.R
-import com.rebeccahenderson.trips.models.TripEvent
-import kotlinx.android.synthetic.main.row_dayevent.view.*
+import com.rebeccahenderson.trips.models.Event
+import kotlinx.android.synthetic.main.row_event.view.*
 
 /**
  * Created by becky on 3/7/18.
  */
-class DayEventsListAdapter(private var context: Context, val events: List<TripEvent>) : RecyclerView.Adapter<DayEventsListAdapter.ViewHolder>() {
+class EventsListAdapter(private var context: Context, val events: List<Event>) : RecyclerView.Adapter<EventsListAdapter.ViewHolder>() {
 
     override fun getItemCount() = events.size
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.row_dayevent, parent, false)
+        val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.row_event, parent, false)
         return ViewHolder(itemView)
     }
 

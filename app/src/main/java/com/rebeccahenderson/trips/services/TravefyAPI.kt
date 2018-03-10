@@ -5,8 +5,7 @@ import com.github.kittinunf.fuel.gson.responseObject
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import com.rebeccahenderson.trips.models.Trip
-import com.rebeccahenderson.trips.models.TripDay
-import com.rebeccahenderson.trips.models.TripEvent
+import com.rebeccahenderson.trips.models.Day
 
 /**
  * Created by becky on 3/7/18.
@@ -32,15 +31,15 @@ object TravefyAPI {
 				.responseObject<Trip>(Trip.Deserializer(), handler)
 	}
 
-	fun getTripDays(tripId: Int, handler: (Request, Response, Result<List<TripDay>, FuelError>) -> Unit) {
+	fun getTripDays(tripId: Int, handler: (Request, Response, Result<List<Day>, FuelError>) -> Unit) {
 		"/tripDays".httpGet()
 				.header(mapOf("X-TRIP-ID" to "$tripId"))
-				.responseObject<List<TripDay>>(TripDay.ListDeserializer(), handler)
+				.responseObject<List<Day>>(Day.ListDeserializer(), handler)
 	}
 
-	fun getTripDayEvents(tripDayId: Int, tripId: Int, handler: (Request, Response, Result<TripDay, FuelError>) -> Unit) {
+	fun getTripDayEvents(tripDayId: Int, tripId: Int, handler: (Request, Response, Result<Day, FuelError>) -> Unit) {
 		"/tripDays/$tripDayId".httpGet()
 				.header(mapOf("X-TRIP-ID" to "$tripId"))
-				.responseObject<TripDay>(handler)
+				.responseObject<Day>(handler)
 	}
 }

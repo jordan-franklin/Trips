@@ -4,41 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<FrameLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-
-        <!--<ImageView-->
-            <!--android:id="@+id/dayImage"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="120dp"-->
-            <!--android:scaleType="centerCrop" />-->
-
-    <!--</FrameLayout>-->
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/dayNameHolder"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@android:color/background_light" >
-
-            <TextView
-                android:id="@+id/dayName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/black" />
-
-        </LinearLayout>
-    </FrameLayout>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/dayEventsList"
         android:layout_width="match_parent"

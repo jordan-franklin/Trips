@@ -6,15 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rebeccahenderson.trips.R
-import com.rebeccahenderson.trips.TripDaysData
-import com.rebeccahenderson.trips.models.TripDay
+import com.rebeccahenderson.trips.models.Day
+import com.rebeccahenderson.trips.models.Trip
 import kotlinx.android.synthetic.main.row_tripdate.view.*
+import java.text.SimpleDateFormat
 
 /**
  * Created by becky on 3/7/18.
  */
 
-class TripDaysListAdapter(private var context: Context, val days: List<TripDay>) : RecyclerView.Adapter<TripDaysListAdapter.ViewHolder>() {
+class DaysListAdapter(private var context: Context, val days: List<Day>, val trip: Trip) : RecyclerView.Adapter<DaysListAdapter.ViewHolder>() {
 
     lateinit var itemClickListener: OnItemClickListener
 
@@ -27,8 +28,8 @@ class TripDaysListAdapter(private var context: Context, val days: List<TripDay>)
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val tripDay = days[position]
-        holder?.itemView?.tripDayName?.text = tripDay.Title //add fallback for empty name. just day of week?
-    }
+        holder?.itemView?.tripDayName?.text = tripDay.Title ?: SimpleDateFormat("EEEE").format(tripDay.Date)
+	}
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         init {
