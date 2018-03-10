@@ -1,6 +1,7 @@
 package com.rebeccahenderson.trips.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,13 @@ class DaysListAdapter(private var context: Context, val days: List<Day>, val tri
         val tripDay = days[position]
         holder?.itemView?.tripDayName?.text = tripDay.Title ?: SimpleDateFormat("EEEE").format(tripDay.Date)
 		holder?.itemView?.date?.text = DateFormat.getDateInstance().format(tripDay.Date)
+		val events = tripDay.TripEvents
+		val numEvents = if (events != null) events.count() else 0
+		holder?.itemView?.eventCount?.text = if (numEvents == 0) "No Events" else numEvents.toString() + " Event" + (if (numEvents == 1) "" else "s")
+		if (numEvents == 0) {
+			holder?.itemView?.tripDayCard?.setCardBackgroundColor(Color.LTGRAY)
+			holder?.itemView?.tripDayHolder?.background = null
+		}
 	}
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {

@@ -37,7 +37,10 @@ class DaysListActivity : AppCompatActivity() {
 
     private val onItemClickListener = object : DaysListAdapter.OnItemClickListener {
         override fun onItemClick(view: View, position: Int) {
-            startActivity(EventsListActivity.newIntent(this@DaysListActivity, adapter.days[position]))
+			val day = adapter.days[position]
+			val tripEvents = day.TripEvents
+			if (tripEvents != null && tripEvents.count() >= 0)
+				startActivity(EventsListActivity.newIntent(this@DaysListActivity, day))
         }
     }
 
