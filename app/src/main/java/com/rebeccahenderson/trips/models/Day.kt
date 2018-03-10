@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat
 data class Day(var Id: Int,
 			   var Title: String?,
 			   var Date: Date?,
-			   var TripEvents: List<Event>) : Parcelable {
+			   var TripEvents: List<Event>?) : Parcelable {
 	constructor(parcel: Parcel) : this(
 			parcel.readInt(),
 			parcel.readString(),

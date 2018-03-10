@@ -59,10 +59,10 @@ class DaysListActivity : AppCompatActivity() {
 
     fun setupAdapter(days: List<Day>?) {
 		var filteredDays = days?.filter { it.Date != null }
-        adapter = DaysListAdapter(this, filteredDays ?: listOf(), trip)
-        tripDaysList.adapter = adapter
-        adapter.setOnItemClickListener(onItemClickListener)
-    }
+		adapter = DaysListAdapter(this, filteredDays ?: listOf(), trip)
+		tripDaysList.adapter = adapter
+		adapter.setOnItemClickListener(onItemClickListener)
+	}
 
     fun loadTripDays() {
 		trip = intent.getParcelableExtra(EXTRA_TRIP_ID)

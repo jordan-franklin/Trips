@@ -9,7 +9,8 @@
         android:id="@+id/tripImage"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:transitionName="tImage"/>
 
     <!-- Used for the ripple effect on touch -->
     <LinearLayout
@@ -35,7 +36,8 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:transitionName="tName"/>
 
     </LinearLayout>
 

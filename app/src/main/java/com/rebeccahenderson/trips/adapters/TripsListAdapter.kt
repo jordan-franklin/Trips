@@ -1,6 +1,8 @@
 package com.rebeccahenderson.trips.adapters
 
 import android.content.Context
+import android.support.v4.app.ActivityCompat
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
