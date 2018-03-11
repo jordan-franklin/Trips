@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.row_trip.view.*
  * Created by becky on 3/6/18.
  */
 
-class TripsListAdapter(private var context: Context, val trips: List<Trip>) : RecyclerView.Adapter<TripsListAdapter.ViewHolder>() {
+class TripsListAdapter(private var context: Context, var trips: List<Trip>) : RecyclerView.Adapter<TripsListAdapter.ViewHolder>() {
 
 	lateinit var itemClickListener: OnItemClickListener
 
@@ -38,6 +38,10 @@ class TripsListAdapter(private var context: Context, val trips: List<Trip>) : Re
 								.use(PicassoPalette.Profile.MUTED_DARK)
 								.intoBackground(holder?.itemView?.tripNameHolder)
 				);
+	}
+
+	fun updateTrips(trips: List<Trip>) {
+
 	}
 
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {

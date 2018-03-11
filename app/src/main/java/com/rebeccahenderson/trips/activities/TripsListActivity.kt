@@ -52,6 +52,7 @@ class TripsListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
 		loadTrips() { trips ->
 			swipeRefreshLayout.isRefreshing = false
 			adapter.trips = trips
+			adapter.notifyDataSetChanged()
 		}
 	}
 
@@ -61,7 +62,7 @@ class TripsListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         adapter.setOnItemClickListener(onItemClickListener)
     }
 
-    fun loadTrips(handler: (List<Trip>) -> ) {
+    fun loadTrips(handler: (List<Trip>) -> Unit) {
         tripListProgress.visibility = View.VISIBLE
         tripList.visibility = View.GONE
         TravefyAPI.getTrips { request, response, result ->
