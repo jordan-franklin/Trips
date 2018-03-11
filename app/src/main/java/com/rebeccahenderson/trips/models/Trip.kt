@@ -16,11 +16,13 @@ import java.util.*
 data class Trip(val Id: Int,
 				val Name: String,
 				val TripCoverPhotoUrl: String,
+				val IsArchived: Boolean,
 				val TripDays: List<Day>?) : Parcelable {
 	constructor(parcel: Parcel) : this(
 			parcel.readInt(),
 			parcel.readString(),
 			parcel.readString(),
+			parcel.readInt() != 0,
 			parcel.createTypedArrayList(Day)) {
 	}
 
@@ -28,6 +30,7 @@ data class Trip(val Id: Int,
 		parcel.writeInt(Id)
 		parcel.writeString(Name)
 		parcel.writeString(TripCoverPhotoUrl)
+		parcel.writeInt(if (IsArchived) 1 else 0 )
 		parcel.writeTypedList(TripDays)
 	}
 

@@ -62,16 +62,28 @@ class TripsListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         adapter.setOnItemClickListener(onItemClickListener)
     }
 
+	fun startLoadIndicators() {
+		tripListProgress.visibility = View.VISIBLE
+		tripList.visibility = View.GONE
+	}
+
+	fun stopLoadIndicators() {
+		tripListProgress.visibility = View.GONE
+		tripList.visibility = View.VISIBLE
+	}
+
+	fun activeTrips(allTrips: List<Trip>): List<Trip> {
+		return allTrips.filter { !it.IsArchived }
+	}
+
     fun loadTrips(handler: (List<Trip>) -> Unit) {
-        tripListProgress.visibility = View.VISIBLE
-        tripList.visibility = View.GONE
+		startLoadIndicators()
         TravefyAPI.getTrips { request, response, result ->
             when(result) {
                 is Result.Success -> {
-                    tripListProgress.visibility = View.GONE
-                    tripList.visibility = View.VISIBLE
+                    stopLoadIndicators()
 
-					handler(result.value)
+					handler(activeTrips(result.value))
                 }
                 is Result.Failure -> {
                     println("Result $response")

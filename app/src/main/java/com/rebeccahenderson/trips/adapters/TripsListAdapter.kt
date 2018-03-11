@@ -40,10 +40,6 @@ class TripsListAdapter(private var context: Context, var trips: List<Trip>) : Re
 				);
 	}
 
-	fun updateTrips(trips: List<Trip>) {
-
-	}
-
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 		init {
 			itemView.tripHolder.setOnClickListener(this)
