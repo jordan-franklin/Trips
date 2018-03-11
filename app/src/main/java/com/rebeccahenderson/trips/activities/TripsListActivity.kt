@@ -12,9 +12,10 @@ import com.rebeccahenderson.trips.models.Trip
 import com.rebeccahenderson.trips.services.TravefyAPI
 import kotlinx.android.synthetic.main.activity_trips.*
 import android.support.v4.util.Pair
+import android.support.v4.widget.SwipeRefreshLayout
 import android.widget.ImageView
 
-class TripsListActivity : AppCompatActivity() {
+class TripsListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
     lateinit private var staggeredLayoutManager: StaggeredGridLayoutManager
     lateinit private var adapter: TripsListAdapter
@@ -40,8 +41,19 @@ class TripsListActivity : AppCompatActivity() {
         staggeredLayoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         tripList.layoutManager = staggeredLayoutManager
 
-        loadTrips()
+		swipeRefreshLayout.setOnRefreshListener(this)
+
+        loadTrips() { trips ->
+			setupAdapter(trips)
+		}
     }
+
+	override fun onRefresh() {
+		loadTrips() { trips ->
+			swipeRefreshLayout.isRefreshing = false
+			adapter.trips = trips
+		}
+	}
 
     fun setupAdapter(trips: List<Trip>) {
         adapter = TripsListAdapter(this, trips)
@@ -49,7 +61,7 @@ class TripsListActivity : AppCompatActivity() {
         adapter.setOnItemClickListener(onItemClickListener)
     }
 
-    fun loadTrips() {
+    fun loadTrips(handler: (List<Trip>) -> ) {
         tripListProgress.visibility = View.VISIBLE
         tripList.visibility = View.GONE
         TravefyAPI.getTrips { request, response, result ->
@@ -57,7 +69,8 @@ class TripsListActivity : AppCompatActivity() {
                 is Result.Success -> {
                     tripListProgress.visibility = View.GONE
                     tripList.visibility = View.VISIBLE
-                    setupAdapter(result.value)
+
+					handler(result.value)
                 }
                 is Result.Failure -> {
                     println("Result $response")

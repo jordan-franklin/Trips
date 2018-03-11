@@ -65,8 +65,10 @@ class DaysListActivity : AppCompatActivity() {
 	}
 
     fun setupAdapter(days: List<Day>?) {
-		var filteredDays = days?.filter { it.Date != null }
-		adapter = DaysListAdapter(this, filteredDays ?: listOf(), trip)
+		val days = days
+		val daysWithoutInfo = days?.drop(1)
+
+		adapter = DaysListAdapter(this, daysWithoutInfo ?: listOf(), trip)
 		tripDaysList.adapter = adapter
 		adapter.setOnItemClickListener(onItemClickListener)
 	}
@@ -83,8 +85,10 @@ class DaysListActivity : AppCompatActivity() {
         TravefyAPI.getTrip(trip.Id) { request, response, result ->
 			when(result) {
 				is Result.Success -> {
+
 					tripDaysListProgress.visibility = View.GONE
 					tripDaysList.visibility = View.VISIBLE
+
 					trip = result.value
 					setupAdapter(trip.TripDays)
 				}

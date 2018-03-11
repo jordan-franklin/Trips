@@ -7,21 +7,21 @@ import android.os.Parcelable
  * Created by becky on 3/7/18.
  */
 
-data class Event(var Id: Int,
-                 var Name: String,
-                 var StartTimeInMinutes: Int,
-                 var Description: String) : Parcelable {
+data class Event(val Id: Int,
+                 val Name: String,
+                 val StartTimeInMinutes: Int?,
+                 val Description: String) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
             parcel.readString() ?: "",
-            parcel.readInt(),
+            parcel.readValue(Int::class.java.classLoader) as Int?,
             parcel.readString() ?: "") {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(Id)
         parcel.writeString(Name)
-        parcel.writeInt(StartTimeInMinutes)
+		parcel.writeValue(StartTimeInMinutes)
         parcel.writeString(Description)
     }
 

@@ -28,11 +28,14 @@ class EventsListAdapter(private var context: Context,
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val event = events[position]
         holder?.itemView?.eventName?.text = event.Name
-		val eventTimeFromMidnight = event.StartTimeInMinutes
-		val calendar = Calendar.getInstance()
-		calendar.time = date
-		calendar.add(Calendar.MINUTE, eventTimeFromMidnight)
-        holder?.itemView?.eventTime?.text = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT).format(calendar.time)
+		if (event.StartTimeInMinutes != null) {
+			val calendar = Calendar.getInstance()
+			calendar.time = date
+			calendar.add(Calendar.MINUTE, event.StartTimeInMinutes)
+			holder?.itemView?.eventTime?.text = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT).format(calendar.time)
+		} else {
+			holder?.itemView?.eventTime?.visibility = View.GONE
+		}
 
         val mimeType = "text/html"
         val encoding = "UTF-8";

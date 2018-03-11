@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:launchMode="singleTop">
-        <activity android:name=".activities.TripsListActivity">
+        <activity android:name=".activities.TripsListActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
