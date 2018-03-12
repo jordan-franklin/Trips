@@ -9,7 +9,6 @@ import com.rebeccahenderson.trips.adapters.EventsListAdapter
 import com.rebeccahenderson.trips.R
 import com.rebeccahenderson.trips.models.Day
 import com.rebeccahenderson.trips.models.Event
-import com.rebeccahenderson.trips.models.Trip
 import kotlinx.android.synthetic.main.activity_events.*
 
 class EventsListActivity : AppCompatActivity() {

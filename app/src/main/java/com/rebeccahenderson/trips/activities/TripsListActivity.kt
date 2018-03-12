@@ -3,7 +3,6 @@ package com.rebeccahenderson.trips.activities
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.github.kittinunf.result.Result
 import com.rebeccahenderson.trips.R
@@ -13,11 +12,13 @@ import com.rebeccahenderson.trips.services.TravefyAPI
 import kotlinx.android.synthetic.main.activity_trips.*
 import android.support.v4.util.Pair
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.app.AlertDialog
+import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
 
 class TripsListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
-    lateinit private var staggeredLayoutManager: StaggeredGridLayoutManager
+    lateinit private var linearLayoutManager: LinearLayoutManager
     lateinit private var adapter: TripsListAdapter
 
     private val onItemClickListener = object : TripsListAdapter.OnItemClickListener {
@@ -38,8 +39,8 @@ class TripsListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_trips)
 
-        staggeredLayoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
-        tripList.layoutManager = staggeredLayoutManager
+		linearLayoutManager = LinearLayoutManager(this)
+        tripList.layoutManager = linearLayoutManager
 
 		swipeRefreshLayout.setOnRefreshListener(this)
 
@@ -76,6 +77,15 @@ class TripsListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
 		return allTrips.filter { !it.IsArchived }
 	}
 
+	fun handleLoadError() {
+		val alertBuilder = AlertDialog.Builder(this)
+		alertBuilder.setMessage(getString(R.string.loadingTripsErrorMessage))
+				.setPositiveButton(getString(R.string.loadingErrorOK), null)
+				.create()
+				.show()
+
+	}
+
     fun loadTrips(handler: (List<Trip>) -> Unit) {
 		startLoadIndicators()
         TravefyAPI.getTrips { request, response, result ->
@@ -86,7 +96,10 @@ class TripsListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
 					handler(activeTrips(result.value))
                 }
                 is Result.Failure -> {
-                    println("Result $response")
+					stopLoadIndicators()
+					swipeRefreshLayout.isRefreshing = false
+
+					handleLoadError()
                 }
             }
         }

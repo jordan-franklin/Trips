@@ -3,6 +3,7 @@ package com.rebeccahenderson.trips.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -54,6 +55,7 @@ class DaysListActivity : AppCompatActivity() {
 		setSupportActionBar(toolbar);
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+		setupTripCover()
 		loadTripDays()
 
 		collapsingToolbar?.setTitle(trip.Name);
@@ -66,34 +68,51 @@ class DaysListActivity : AppCompatActivity() {
 
     fun setupAdapter(days: List<Day>?) {
 		val days = days
-		val daysWithoutInfo = days?.drop(1)
+		val daysWithoutInfo = days?.drop(1) //the first entry is the information entry which shouldn't be shown
 
 		adapter = DaysListAdapter(this, daysWithoutInfo ?: listOf(), trip)
 		tripDaysList.adapter = adapter
 		adapter.setOnItemClickListener(onItemClickListener)
 	}
 
-    fun loadTripDays() {
+	fun handleLoadError() {
+		val alertBuilder = AlertDialog.Builder(this)
+		alertBuilder.setMessage(R.string.loadingDaysErrorMessage)
+				.setPositiveButton(R.string.loadingErrorOK, null)
+				.create()
+				.show()
+
+	}
+
+	fun setupTripCover() {
 		trip = intent.getParcelableExtra(EXTRA_TRIP_ID)
 		Picasso.with(this)
 				.load(trip.TripCoverPhotoUrl)
 				.into(tripDayImage, PicassoPalette.with(trip.TripCoverPhotoUrl.toString(), tripDayImage))
+	}
 
-        tripDaysListProgress.visibility = View.VISIBLE
-        tripDaysList.visibility = View.GONE
+	fun startLoadIndicators() {
+		tripDaysListProgress.visibility = View.VISIBLE
+		tripDaysList.visibility = View.GONE
+	}
 
+	fun stopLoadIndicators() {
+		tripDaysListProgress.visibility = View.GONE
+		tripDaysList.visibility = View.VISIBLE
+	}
+
+    fun loadTripDays() {
+        startLoadIndicators()
         TravefyAPI.getTrip(trip.Id) { request, response, result ->
 			when(result) {
 				is Result.Success -> {
-
-					tripDaysListProgress.visibility = View.GONE
-					tripDaysList.visibility = View.VISIBLE
+					stopLoadIndicators()
 
 					trip = result.value
 					setupAdapter(trip.TripDays)
 				}
 				is Result.Failure -> {
-					println("Result $result")
+					handleLoadError()
 				}
 			}
         }

@@ -27,19 +27,6 @@ object TravefyAPI {
 
 	fun getTrip(tripId: Int, handler: (Request, Response, Result<Trip, FuelError>) -> Unit) {
 		"/trips/$tripId".httpGet()
-//				.header(mapOf("X-TRIP-ID" to "$tripId"))
 				.responseObject<Trip>(Trip.Deserializer(), handler)
-	}
-
-	fun getTripDays(tripId: Int, handler: (Request, Response, Result<List<Day>, FuelError>) -> Unit) {
-		"/tripDays".httpGet()
-				.header(mapOf("X-TRIP-ID" to "$tripId"))
-				.responseObject<List<Day>>(Day.ListDeserializer(), handler)
-	}
-
-	fun getTripDayEvents(tripDayId: Int, tripId: Int, handler: (Request, Response, Result<Day, FuelError>) -> Unit) {
-		"/tripDays/$tripDayId".httpGet()
-				.header(mapOf("X-TRIP-ID" to "$tripId"))
-				.responseObject<Day>(handler)
 	}
 }

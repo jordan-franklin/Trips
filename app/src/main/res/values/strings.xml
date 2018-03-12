@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Trips</string>
+    <string name="loadingTripsErrorMessage">There was an error loading your trips.</string>
+    <string name="loadingDaysErrorMessage">There was an error loading the days of this trip.</string>
+    <string name="loadingErrorOK">OK</string>
+    <string name="day">Day</string>
+    <string name="noEvents">No Events</string>
+    <string name="event">Event</string>
+    <string name="events">Events</string>
 </resources>

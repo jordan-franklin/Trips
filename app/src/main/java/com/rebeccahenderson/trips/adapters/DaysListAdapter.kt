@@ -29,29 +29,38 @@ class DaysListAdapter(private var context: Context, val days: List<Day>, val tri
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        val tripDay = days[position]
-
-		if (tripDay.Title != null) {
-			holder?.itemView?.tripDayName?.text = tripDay.Title
-		} else if (tripDay.Date != null) {
-			holder?.itemView?.tripDayName?.text = SimpleDateFormat("EEEE").format(tripDay.Date)
-		} else {
-			holder?.itemView?.tripDayName?.text = "Day ${position+1}"
+		fun setDayName(day: Day) {
+			if (day.Title != null) {
+				holder?.itemView?.tripDayName?.text = day.Title
+			} else if (day.Date != null) {
+				holder?.itemView?.tripDayName?.text = SimpleDateFormat("EEEE").format(day.Date)
+			} else {
+				holder?.itemView?.tripDayName?.text = "${context.getString(R.string.day)} ${position+1}"
+			}
 		}
 
-		if (tripDay.Date != null) {
-			holder?.itemView?.date?.text = DateFormat.getDateInstance().format(tripDay.Date)
+		fun setDate(day: Day) {
+			if (day.Date != null) {
+				holder?.itemView?.date?.text = DateFormat.getDateInstance().format(day.Date)
+			}
 		}
 
-		val events = tripDay.TripEvents
-		val numEvents = if (events != null) events.count() else 0
-		if (numEvents == 0) {
-			holder?.itemView?.eventCount?.text = "No Events"
-			holder?.itemView?.tripDayCard?.setCardBackgroundColor(Color.LTGRAY)
-			holder?.itemView?.tripDayHolder?.background = null
-		} else {
-			holder?.itemView?.eventCount?.text = numEvents.toString() + " Event" + (if (numEvents == 1) "" else "s")
+		fun setEventsInfo(day: Day) {
+			val events = day.TripEvents
+			val numEvents = if (events != null) events.count() else 0
+			if (numEvents == 0) {
+				holder?.itemView?.eventCount?.text = context.getString(R.string.noEvents)
+				holder?.itemView?.tripDayCard?.setCardBackgroundColor(Color.LTGRAY)
+				holder?.itemView?.tripDayHolder?.background = null
+			} else {
+				holder?.itemView?.eventCount?.text = numEvents.toString() + " " + (if (numEvents == 1) context.getString(R.string.event) else context.getString(R.string.events))
+			}
 		}
+
+		val tripDay = days[position]
+		setDayName(tripDay)
+		setDate(tripDay)
+		setEventsInfo(tripDay)
 	}
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
